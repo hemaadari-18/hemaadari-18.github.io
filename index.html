@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Basic favicon for most browsers -->
+    <!-- Standard Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Smaller Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: rgb(151, 19, 19);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        /* row1 grid-item*/
+
+        .container {
+            width: 100vw;
+            padding: 0 40px;
+            /* Left and right inner spacing */
+            margin-top: 90px;
+            /*Space from top */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto auto auto;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .item {
+            padding: 10px;
+            font-size: 18px;
+            background-color: rgb(254, 254, 244);
+            border-radius: 10px;
+        }
+
+        .top {
+            display: flex;
+            grid-column: 1 / 3;
+            background-color: rgb(236, 234, 241);
+            align-items: center;
+            /* ✅ Vertically center content */
+            background-color: rgb(254, 254, 244);
+            padding: 40px;
+            gap: 50px;
+        }
+
+        .top p {
+            margin: 4px 0;
+            /* 4px top & bottom margin */
+            line-height: 1.6;
+            /* Tighter line spacing */
+            shape-outside: circle(45%);
+        }
+
+        .p1 {
+            color: rgb(255, 0, 230);
+            font-size: 2rem;
+        }
+
+        .p2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #984a8c;
+        }
+
+        .p3 {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        .p4 {
+            font-size: 1.2rem;
+            font-style: oblique;
+            color: #666;
+        }
+
+        /* row1 contact icons*/
+
+        .contact-info {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .contact-info i {
+            color: #984a8c;
+            font-size: 25px;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-info i:hover {
+            transform: scale(1.25);
+        }
+
+        .contact-info a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .contact-info a:hover {
+            color: #984a8c;
+        }
+
+        /* row1 image styling */
+
+        .container1 {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .mainimg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: 0.5s ease;
+            backface-visibility: hidden;
+            display: block;
+        }
+
+        .middle {
+            transition: 0.5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container1:hover .mainimg {
+            opacity: 0.3;
+        }
+
+        .container1:hover .middle {
+            opacity: 1;
+        }
+
+        .text {
+            background-color: #af4c84;
+            color: white;
+            font-size: 16px;
+            padding: 16px 32px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        /*About styling*/
+
+        .about {
+            padding: 10px 40px;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            text-align: justify;
+            font-style: italic;
+        }
+
+        /*Sidebar*/
+
+        .sidebar {
+            padding-top: 20px ;
+
+            grid-column: 2 / 3;
+            grid-row: 2 / 5;
+            background-color: rgb(236, 234, 241);
+        }
+
+        #myModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding-top: 60px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #myModal img {
+            display: block;
+            margin: auto;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #bbb;
+        }
+
+        /*For all hr's Styling*/
+
+        hr {
+            border: none;
+            height: 4px;
+            background-color: rgb(151, 19, 19);
+        }
+
+
+        /* Skills styling */
+        .flex-items-container {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+
+            padding: 30px 50px;
+        }
+
+        .flex-items {
+            display: flex;
+            flex-direction: column;
+            /* Stack items vertically */
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
+            border: 2px solid #984a8c;
+            border-radius: 10px;
+            width: 200px;
+            height: 250px;
+            /* Adjust width as needed */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex-items img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .flex-items p {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .flex-items:hover {
+            cursor: pointer;
+            transform: scale(1.07);
+        }
+
+        /*section(project &contact)styling*/
+
+        .section3_1,
+        .section3_2 {
+            border-radius: 10px;
+            background-color: rgb(236, 234, 241);
+
+            padding: 10px;
+        }
+
+        .section3-container {
+            grid-column: 1 / 2;
+            grid-row: 4;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /*Project styling*/
+
+        .proj-container {
+            display: flex;
+            flex-direction: row;
+            margin: 10px 0;
+            text-align: center;
+            gap: 20px;
+            background-color: #b94032;
+            padding: 20px 20px;
+            border-radius: 8px;
+
+        }
+
+        .proj {
+            width: 100%;
+            border: 2px solid rgb(219, 219, 205);
+            border-radius: 8px;
+            line-height: 22px;
+            background-color: rgb(255, 255, 238);
+            padding: 20px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .proj:hover {
+            transform: translateY(-8px);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #f12097;
+
+        }
+
+        .proj>div {
+            margin-bottom: 10px;
+        }
+
+        /*Contact Styling*/
+
+        .contact-form {
+            max-width: 500px;
+            margin-bottom: 20px;
+            padding: 10px 15px 30px 15px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 10px;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #984a8c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #802f72;
+            transform: scale(1.02);
+        }
+
+        /*media queries for responsiveness*/
+
+        @media (max-width: 480px) {
+            .flex-items {
+                width: 90%;
+                height: auto;
+            }
+
+            .container1 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .text-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /*grid items animation*/
+
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .grid-item {
+            opacity: 0;
+           
+            /* Start hidden */
+            transform: translateX(-100px);
+            /* Start off-screen */
+            animation: slideInFromLeft 1s ease-out forwards;
+        }
+
+        .grid-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        /* Top */
+        .grid-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        /* About */
+        .grid-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        /* Skills */
+        .grid-item:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        /* Projects */
+        .grid-item:nth-child(5) {
+            animation-delay: 1s;
+        }
+
+        /* Contact */
+        .grid-item:nth-child(6) {
+            animation-delay: 1.2s;
+        }
+
+        /* Sidebar */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class=" grid-item item top">
+            <div class="container1">
+                <img src="https://res.cloudinary.com/dz7hkzxyc/image/upload/v1749305515/faceless_u8o6oi.jpg"
+                    class="mainimg">
+                <div class="middle">
+                    <div class="text">Hema</div>
+                </div>
+            </div>
+            <div class="text-content">
+                <p class="p1">Hema Adari</p>
+                <p class="p2">Full Stack Java Developer</p>
+                <p class="p3">Turning ideas into interactive web apps</p>
+                <p class="p4">I specialize in Java backend development combined with <br>modern frontend frameworks to
+                    build
+                    seamless user experiences.</p>
+                <div class="contact-info">
+                    <a href="mailto:hema.adari@example.com" target="_blank" title="Send Mail">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hema-adari-93a588259" target="_blank" title="Visit LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/hemaadari-18" target="_blank" title="Visit GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="grid-item item">
+            <div class="about">
+                <h1>About</h1>
+                <hr>
+                <p>Hello, I’m Hema, a passionate and results-driven Full Stack Java Developer with a Bachelor’s degree
+                    in
+                    Information Technology. With a strong foundation in core Java, object-oriented programming, and web
+                    technologies, I have developed multiple full-stack projects that demonstrate my ability to build
+                    robust and
+                    user-centric web applications.
+
+                    I specialize in Java backend development using Spring Boot and have hands-on experience with
+                    databases like
+                    MySQL. On the frontend, I am proficient in HTML, CSS, and JavaScript, and I’m currently enhancing my
+                    skills in
+                    modern libraries like React.js to create dynamic and responsive user interfaces.
+
+                </p>
+                <p>
+                    Alongside technical skills, I bring strong communication and collaboration abilities. I enjoy
+                    working in
+                    team-based environments and am always eager to learn from others and contribute meaningfully to
+                    shared goals.
+
+                </p>
+                <p>I am deeply committed to continuous learning and growth, with a proactive mindset and a passion for
+                    building
+                    scalable, efficient, and cleanly architected applications.
+
+                    With a strong desire to solve real-world problems through technology, I’m now looking for an
+                    opportunity to
+                    contribute as a Java developer and grow professionally in a challenging and innovative environment.
+                </p>
+                <p>Let’s connect and explore how we can build impactful digital solutions together.</p>
+            </div>
+        </div>
+
+        <div class=" grid-item item">
+            <h1>Skills</h1><hr>
+            <div class="flex-items-container">
+
+                <div class="flex-items">
+                    <img
+                        src="https://res.cloudinary.com/dz7hkzxyc/image/upload/v1748049245/Screenshot_2025-05-24_064133_mxztnx.png" />
+                    <p>HTML, CSS, JavaScript, React.js</p>
+                </div>
+                <div class="flex-items">
+                    <img
+                        src="https://res.cloudinary.com/dz7hkzxyc/image/upload/v1748049246/Screenshot_2025-05-24_062937_rlkzqx.png" />
+                    <p>Core Java, Advanced Java, Spring 6, Spring Boot, REST APIs</p>
+                </div>
+                <div class="flex-items">
+                    <img
+                        src="https://res.cloudinary.com/dz7hkzxyc/image/upload/v1748049245/Screenshot_2025-05-24_064305_d929eu.png" />
+                    <p>MySQL</p>
+                </div>
+            </div>
+        </div>
+       
+
+        <!-- Nested grid in Column 1, Row 4 -->
+        <div class="section3-container">
+            <div class="grid-item section3_1" style="background-color: rgb(254, 254, 244);">
+                <h1>Projects</h1>
+                <hr>
+                <p style="margin-top: 35px;">Take a look at some of the projects I’ve built—bringing ideas to life
+                    through code and design.</p>
+                <div class="proj-container">
+                    <div class="proj">
+                        <div class="project-title">Recipe Hub</div>
+                        <div class="project-desc">A full-stack recipe sharing app with login, add recipe, and search
+                            features.</div>
+                        <div class="project-tech"><b>Tech Stack: </b>Spring Boot, MySQL, HTML, JS</div>
+                    </div>
+                    <div class="proj">
+                        <div class="project-title">Portfolio Website</div>
+                        <div class="project-desc">Personal website showcasing skills,projects and certificates.</div>
+                        <div class="project-tech"><b>Tech Stack: </b>HTML, CSS, JavaScript</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item section3_2" style="background-color: rgb(254, 254, 244); ">
+                <h1>Contact</h1>
+                <hr>
+                <p style="margin-top: 35px;">If you'd like to collaborate or have any questions, feel free to reach out!
+                </p>
+                <div class="contact-form">
+                    <h3>Contact Me</h3>
+                    <form action="https://formsubmit.co/ccfa51bee46bf115cb6be115e738a812" method="POST" onsubmit="return checkFormSubmission();">
+                        
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://hemaadari-18.github.io/thankyou.html">
+
+
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required />
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email" required />
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!--Side-bar for certifications gallery-->
+        <div class="grid-item item sidebar" style="background-color: rgb(254, 254, 244); ">
+            <h1>Certifications</h1>
+            <hr>
+            <div class="certificate-scroll">
+                <img class="cert-img" src="aiml.jpg" alt="AI & ML Certificate" style="width: 100%; margin-top: 4px;">
+                <img class="cert-img" src="python1.jpg" alt="Python Certificate" style="width: 100%;">
+                <img class="cert-img" src="cn.jpg" alt="Computer Networks" style="width: 100%;">
+                <img class="cert-img" src="html.jpg" alt="HTML" style="width: 100%;">
+                <img class="cert-img" src="css.jpg" alt="CSS" style="width: 100%;">
+            </div>
+
+        </div>
+
+        <div id="myModal">
+            <span class="close">&times;</span>
+            <img id="img01">
+            <div id="caption" style="text-align:center; color: white; margin-top: 10px;"></div>
+        </div>
+
+
+    </div>
+
+    </div>
+</body>
+<script>
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    var images = document.querySelectorAll(".cert-img");
+
+    images.forEach(function (img) {
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+    });
+
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    function checkFormSubmission() {
+    // Optional: validate inputs
+    const email = document.querySelector('input[name="email"]').value;
+    const name = document.querySelector('input[name="name"]').value;
+    const message = document.querySelector('textarea[name="message"]').value;
+
+    if (!email || !name || !message) {
+      alert("Please fill out all fields before submitting.");
+      return false; // Prevent submission
+    }
+
+    // You can allow the form to submit now
+    return true;
+  }
+
+  // Optional: show error if redirected from FormSubmit with an error param
+  window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("error")) {
+      alert("❌ There was an error submitting the form. Please try again.");
+    }
+  };
+</script>
+
+
+</html>
